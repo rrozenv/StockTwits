@@ -20,6 +20,8 @@ The application (i.e. view layer) is built for a specific platform like iOS. It 
 
 ## Project Configuration 
 
+To setup the fairly complex project quickly and seamlesssly, this project uses a too called XcodeGen (https://github.com/yonaskolb/XcodeGen). 
+
 The Application target has 3 schemes:
 1. Development 
 2. Staging 
