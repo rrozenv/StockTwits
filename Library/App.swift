@@ -52,6 +52,11 @@ extension App {
         )
     }
     
+    /// Sets the mock environment.
+    ///
+    /// - Parameters:
+    ///   - apiErrors: Specifies mocked errors that shoud be emitted for their respective endpoints. Make sure the correct error is also specfied for each endpoint in the `MockAPIService` file.
+    ///   - responseDelay: Fakes a response delay interval for all endpoint resquests. Useful for simulating a real network fetching scenario.
     public static func setMockEnvironment(
         apiErrors: [Error] = [],
         responseDelay: RxTimeInterval = 0

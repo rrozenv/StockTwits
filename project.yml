@@ -38,6 +38,7 @@ targets:
       - carthage: Prelude
       - carthage: RxSwift
       - carthage: RxCocoa
+      - carthage: Kingfisher
   StockTwits-Tests:
     type: bundle.unit-test
     platform: iOS

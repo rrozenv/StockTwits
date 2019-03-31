@@ -47,6 +47,17 @@ public struct MockAPIService: ServiceType {
     
 }
 
+// MARK: - ApplicationsUseCase
+extension MockAPIService {
+    
+    public func fetchApplications() -> Observable<[Application]> {
+        let response = try! JSONMapper.createArray(Application.self, from: JSONFile.getApplications.rawValue)
+        return observable(of: response, error: AppListError.fetchAppsFailed)
+    }
+    
+}
+
+
 // MARK: - UsersUseCase
 extension MockAPIService {
     
@@ -58,15 +69,6 @@ extension MockAPIService {
         return observable(of: UserEnvelope.template, error: UserError.fetchUsersFailed)
     }
 
-}
-
-extension MockAPIService {
-    
-    public func fetchApplications() -> Observable<[Application]> {
-        let response = try! JSONMapper.createArray(Application.self, from: JSONFile.getApplications.rawValue)
-        return observable(of: response, error: AppListError.fetchAppsFailed)
-    }
-    
 }
 
 // MARK: - Private Methods

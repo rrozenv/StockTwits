@@ -35,6 +35,34 @@ public struct APIService: ServiceType {
 
 }
 
+// MARK: - ApplicationsUseCase
+extension APIService {
+    
+    public func fetchApplications() -> Observable<[Application]>  {
+        // Cached result if it exists.
+        let cachedResult = App.current.storage
+            .fetch(ApplicationEnvelope.self).asObservable()
+            .catchErrorReturnEmpty()
+        
+        // New network result which overrwrites latest cache.
+        let networkResult = Observable
+            .just(try! JSONMapper.createArray(Application.self, from: JSONFile.getApplications.rawValue))
+            .map(ApplicationEnvelope.init)
+            .flatMap { result -> Observable<ApplicationEnvelope> in
+                return App.current.storage.save(object: result)
+                    .asObservable()
+                    .map { _ in result }
+                    .catchErrorJustReturn(result)
+        }
+        
+        // Return cached result immediatly if exists. Then return network result.
+        return cachedResult
+            .concat(networkResult)
+            .map { $0.apps }
+    }
+    
+}
+
 // MARK: - UsersUseCase
 extension APIService {
     
@@ -62,34 +90,6 @@ extension APIService {
             .just(UserEnvelope.template)
 
         return cachedResult.concat(networkResult)
-    }
-    
-}
-
-// MARK: - ApplicationsUseCase
-extension APIService {
-    
-    public func fetchApplications() -> Observable<[Application]>  {
-        // Cached result if it exists.
-        let cachedResult = App.current.storage
-            .fetch(ApplicationEnvelope.self).asObservable()
-            .catchErrorReturnEmpty()
-        
-        // New network result which overrwrites latest cache.
-        let networkResult = Observable
-            .just(try! JSONMapper.createArray(Application.self, from: JSONFile.getApplications.rawValue))
-            .map(ApplicationEnvelope.init)
-            .flatMap { result -> Observable<ApplicationEnvelope> in
-                return App.current.storage.save(object: result)
-                    .asObservable()
-                    .map { _ in result }
-                    .catchErrorJustReturn(result)
-        }
-
-        // Return cached result immediatly if exists. Then return network result.
-        return cachedResult
-            .concat(networkResult)
-            .map { $0.apps }
     }
     
 }

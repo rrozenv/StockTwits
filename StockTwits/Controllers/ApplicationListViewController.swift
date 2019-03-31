@@ -5,6 +5,7 @@ import RxCocoa
 import Library
 import Prelude
 import Domain
+import Kingfisher
 
 internal final class AppListViewController: RxViewController, BindableType {
     
@@ -63,12 +64,13 @@ internal final class AppListViewController: RxViewController, BindableType {
         /// Displays settings in table view.
         outputs.apps$
             .drive(tableView.rx.items(cellIdentifier: String(describing: ApplicationTableCell.self), cellType: ApplicationTableCell.self)) { row, app, cell in
-                print(row)
                 cell.cellView.titleLabel.text = app.nameText
                 cell.cellView.descriptionLabel.text = app.descriptionText
                 cell.cellView.actionButton.setTitle(app.actionText, for: .normal)
                 cell.cellView.appPurchaseLabel.text = app.inAppPurchaseText
-                cell.cellView.logoImageView.backgroundColor = .orange
+                if let imageUrl = app.imageURL {
+                    cell.cellView.logoImageView.kf.setImage(with: imageUrl)
+                }
             }
             .disposed(by: disposeBag)
         

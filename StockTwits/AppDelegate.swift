@@ -24,7 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setupMockEnvironmentForDevelopmentScheme() {
-        // Errors added to array will the error for respective api request.
+        // Errors added to array will simualte an error for the respective api request.
+        // Add `AppListError.fetchAppsFailed` to the array to see the network error scenario in the UI.
         let mockedErrors: [Error] = [] // [AppListError.fetchAppsFailed]
         
         #if DEVELOPMENT
