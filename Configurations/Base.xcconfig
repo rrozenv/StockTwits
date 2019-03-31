@@ -1,0 +1,21 @@
+//
+//  Base.xcconfig
+//  StockTwits
+//
+//  Created by Robert Rozenvasser on 3/30/19.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+/// App name.
+APP_NAME = Hedge
+
+/// Bundle id.
+APP_BUNDLE_ID = com.clukapp.Hedge
+
+/// Build version.
+BUILD_VERSION = 1.0
+
+/// Specifys logging.
+LOGGING = YES

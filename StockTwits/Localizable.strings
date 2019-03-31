@@ -1,0 +1,9 @@
+
+"applications" = "Applications";
+"in_app_purchases" = "In-App\nPurchases";
+"get" = "get";
+
+"generic_error_title" = "Oops! Something failed.";
+"generic_error_message" = "Please try again.";
+"generic_error_action_title" = "OK";
+

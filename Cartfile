@@ -1,0 +1,2 @@
+github "rrozenv/Prelude" "master"
+github "ReactiveX/RxSwift" ~> 4.0

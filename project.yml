@@ -1,0 +1,84 @@
+name: StockTwits 
+options: 
+  createIntermediateGroups: true 
+  bundleIdPrefix: "com.stock-twits"
+configs:
+  Development Debug: debug
+  Staging Debug: debug
+  Production Debug: debug
+  Development Release: release
+  Staging Release: release
+  Production Release: release
+targets:
+  StockTwits-iOS:
+    type: application
+    platform: iOS
+    deploymentTarget: "11.0"
+    sources:
+      - path: StockTwits
+    configFiles:
+      Development Debug: Configurations/Development.xcconfig
+      Staging Debug: Configurations/Staging.xcconfig
+      Production Debug: Configurations/Production.xcconfig
+      Development Release: Configurations/Development.xcconfig
+      Staging Release: Configurations/Staging.xcconfig
+      Production Release: Configurations/Production.xcconfig
+    scheme:
+      testTargets:
+        - StockTwits-Tests
+        - Library-Tests
+      configVariants:
+        - Development
+        - Staging
+        - Production
+      gatherCoverageData: true
+    dependencies: 
+      - target: Library
+      - target: Domain
+      - carthage: Prelude
+      - carthage: RxSwift
+      - carthage: RxCocoa
+  StockTwits-Tests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: StockTwits
+    dependencies:
+      - target: StockTwits-iOS
+      - carthage: RxTest
+      - carthage: RxBlocking
+  Library:
+    type: framework
+    platform: iOS
+    deploymentTarget: "11.0"
+    sources:
+      - path: Library
+    info: 
+      path: Library/Info.plist
+    dependencies: 
+      - target: Domain
+      - carthage: Prelude
+      - carthage: RxSwift
+      - carthage: RxCocoa
+  Library-Tests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "11.0"
+    sources:
+      - path: StockTwits
+    dependencies:
+      - target: Library
+      - carthage: RxTest
+      - carthage: RxBlocking
+  Domain:
+    type: framework
+    platform: iOS
+    deploymentTarget: "11.0"
+    sources:
+      - path: Domain
+    info: 
+      path: Domain/Info.plist
+    dependencies: 
+      - carthage: Prelude
+      - carthage: RxSwift
+  
