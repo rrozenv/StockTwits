@@ -16,9 +16,7 @@ public struct MockAPIService: ServiceType {
     public let appId: String
     public let buildVersion: String
     public let baseApiUrl: URL
-    public let oauthToken: String?
     public let language: String
-    public let currency: String
     
     /// Called internally to notify listeners when an object is modifed, created, or deleted.
     /// Should not be subscribed to directly, check `ObjectNotificationProtocol` for helper methods.
@@ -34,15 +32,11 @@ public struct MockAPIService: ServiceType {
     public init(appId: String = Configuration.appName,
                 buildVersion: String = Configuration.buildVersion,
                 baseApiUrl: URL = Configuration.rootURL,
-                oauthToken: String? = nil,
-                language: String = Locale.current.languageCode ?? "en",
-                currency: String = "USD") {
+                language: String = Locale.current.languageCode ?? "en") {
         self.buildVersion = buildVersion
         self.appId = appId
         self.baseApiUrl = baseApiUrl
-        self.oauthToken = oauthToken
         self.language = language
-        self.currency = currency
     }
     
 }
